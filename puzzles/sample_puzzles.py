@@ -38,11 +38,24 @@ def get_invalid_puzzle():
         [0, 0, 3]
     ])
 
+# Today's puzzle (6x6, ignore barriers)
+def get_puzzle_today():
+    # 0 = blank, 1-6 = numbered cells
+    arr = np.zeros((6,6), dtype=int)
+    arr[0,0] = 1
+    arr[0,5] = 6
+    arr[2,2] = 4
+    arr[2,4] = 2
+    arr[4,1] = 3
+    arr[4,3] = 5
+    return arr
+
 # Return all puzzles for batch testing
 def get_all_puzzles():
     return [
         ("3x3 Snake", get_puzzle_3x3()),
         ("4x4 Spiral", get_puzzle_4x4()),
         ("5x5 Zigzag", get_puzzle_5x5()),
+        ("Today's Puzzle", get_puzzle_today()),
         ("Invalid", get_invalid_puzzle()),
     ]

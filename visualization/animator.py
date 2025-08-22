@@ -12,9 +12,13 @@ class ZipPuzzleAnimator:
         self.titles = titles
 
     def animate(self):
-        fig, axes = plt.subplots(1, len(self.solver_paths), figsize=(5 * len(self.solver_paths), 5))
-        if len(self.solver_paths) == 1:
-            axes = [axes]
+        n_panels = len(self.solver_paths)
+        if n_panels == 6:
+            n_rows, n_cols = 2, 3
+        else:
+            n_rows, n_cols = 1, n_panels
+        fig, axes = plt.subplots(n_rows, n_cols, figsize=(5 * n_cols, 5 * n_rows))
+        axes = axes.flatten() if n_panels > 1 else [axes]
         max_len = max(len(path) for path in self.solver_paths)
         grid_shape = self.grid.shape
         for step in range(max_len):
@@ -26,12 +30,14 @@ class ZipPuzzleAnimator:
                 ax.set_yticks(np.arange(-0.5, grid_shape[0], 1), minor=True)
                 ax.grid(which='minor', color='black', linestyle='-', linewidth=1)
                 ax.imshow(np.ones(grid_shape), cmap='Greys', vmin=0, vmax=1, alpha=0.2)
-                # Draw cell numbers
+                # Draw cell numbers and barriers
                 for x in range(grid_shape[0]):
                     for y in range(grid_shape[1]):
                         val = self.grid[x, y]
                         if val > 0:
                             ax.text(y, x, str(val), color='black', ha='center', va='center', fontsize=14, fontweight='bold')
+                        elif val == -1:
+                            ax.add_patch(plt.Rectangle((y-0.5, x-0.5), 1, 1, color='black'))
                 # Animate path
                 if not path:
                     ax.text(grid_shape[1]/2, grid_shape[0]/2, 'No Solution', color='red', fontsize=16, ha='center', va='center')

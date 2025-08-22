@@ -9,5 +9,6 @@ def get_panel_titles():
         "Divide & Conquer + DP",
         "Shortest Path + Heuristic",
         "Reverse Engineering",
-        "ML Predictor"
+        "ML Predictor",
+        "CSP Pruned DFS/A*"
     ]

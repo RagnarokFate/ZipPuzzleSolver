@@ -12,11 +12,12 @@ class ShortestPathHeuristicSolver:
 
     def solve(self):
         start = tuple(np.argwhere(self.grid == 1)[0])
+        end = tuple(np.argwhere(self.grid == np.max(self.grid))[0])
         total_cells = self.grid.size
         path = [start]
         visited = set([start])
         result = self._backtrack(start, 2, path, visited)
-        if result and len(result) == total_cells:
+        if result and len(result) == total_cells and result[-1] == end:
             return result
         return None
 

@@ -13,10 +13,11 @@ class DivideConquerDPSolver:
 
     def solve(self):
         start = tuple(np.argwhere(self.grid == 1)[0])
+        end = tuple(np.argwhere(self.grid == np.max(self.grid))[0])
         total_cells = self.grid.size
         bitmask = 1 << (start[0] * self.grid.shape[1] + start[1])
         path = self._dp(start, 2, bitmask, [start])
-        if path and len(path) == total_cells:
+        if path and len(path) == total_cells and path[-1] == end:
             return path
         return None
 

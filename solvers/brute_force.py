@@ -13,10 +13,11 @@ class BruteForceSolver:
 
     def solve(self):
         start = tuple(np.argwhere(self.grid == 1)[0])
+        end = tuple(np.argwhere(self.grid == np.max(self.grid))[0])
         total_cells = self.grid.size
         self._dfs(start, [start], 2)
-        # Only return if all cells are visited
-        if self.found and len(self.path) == total_cells:
+        # Only return if all cells are visited and ends at last number
+        if self.found and len(self.path) == total_cells and self.path[-1] == end:
             return self.path
         return None
 

@@ -14,7 +14,7 @@ class ReverseEngineeringSolver:
         path = [end]
         visited = set([end])
         if self._reverse_dfs(end, np.max(self.grid)-1, path, visited):
-            if len(path) == total_cells:
+            if len(path) == total_cells and path[0] == end:
                 return path[::-1]
         return None
 
